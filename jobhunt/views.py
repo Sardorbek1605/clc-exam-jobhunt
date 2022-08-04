@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
@@ -26,6 +28,10 @@ class CountsViewSet(views.APIView):
         ]
         results = CountsSerializer(data_counts, many=True).data
         return Response(results)
+
+    @method_decorator(cache_page(10 * 10 * 2))
+    def get(self, *args, **kwargs):
+        return super().get(*args, **kwargs)
 
 
 class CategoriesListViewSet(views.APIView):
@@ -57,3 +63,7 @@ class CategoriesListViewSet(views.APIView):
         category_data = data
         results = CategorySerializer(category_data, many=True).data
         return Response(results)
+
+    @method_decorator(cache_page(10 * 10 * 2))
+    def get(self, *args, **kwargs):
+        return super().get(*args, **kwargs)
