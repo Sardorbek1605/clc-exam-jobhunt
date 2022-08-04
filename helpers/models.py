@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+# from django.utils.translation import ugettext_lazy as _
 
 from django.template import defaultfilters
-from unidecode import unidecode
+# from unidecode import unidecode
 
 
 def generate_unique_slug(klass, field):
@@ -17,8 +17,8 @@ def generate_unique_slug(klass, field):
 
 
 class BaseModel(models.Model):
-    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
+    created_at = models.DateTimeField(("created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(("updated at"), auto_now=True)
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
